@@ -1,50 +1,83 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A Tourist Guide in Senegal</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+/* ====== THEME VARIABLES ====== */
+[data-theme="dark"] {
+  --bg:        #0D0D0D;
+  --bg-2:      #141414;
+  --bg-3:      #1C1C1C;
+  --text:      #F5F5F5;
+  --text-dim:  rgba(245,245,245,0.62);
+  --muted:     #888;
+  --border:    rgba(26,122,74,0.18);
+  --border-s:  rgba(26,122,74,0.38);
+  --card-bg:   rgba(255,255,255,0.03);
+  --nav-bg:    rgba(13,13,13,0.97);
+  --strip-bg:  rgba(13,13,13,0.95);
+  --overlay:   rgba(13,13,13,0.55);
+  --lb-bg:     rgba(8,8,8,0.97);
+  --shadow:    0 4px 24px rgba(0,0,0,0.4);
+  --input-bg:  rgba(255,255,255,0.03);
+  --conv-bg:   #1C1C1C;
+}
+[data-theme="light"] {
+  --bg:        #FFFFFF;
+  --bg-2:      #F7F9F7;
+  --bg-3:      #EEF3EE;
+  --text:      #111111;
+  --text-dim:  rgba(17,17,17,0.65);
+  --muted:     #6B7B6B;
+  --border:    rgba(26,122,74,0.18);
+  --border-s:  rgba(26,122,74,0.40);
+  --card-bg:   rgba(26,122,74,0.04);
+  --nav-bg:    rgba(255,255,255,0.97);
+  --strip-bg:  rgba(255,255,255,0.96);
+  --overlay:   rgba(0,0,0,0.45);
+  --lb-bg:     rgba(0,0,0,0.92);
+  --shadow:    0 4px 24px rgba(0,0,0,0.10);
+  --input-bg:  rgba(26,122,74,0.04);
+  --conv-bg:   #EEF3EE;
+}
+
 :root {
-  --gold: #C9953A;
-  --gold-light: #E8C278;
-  --gold-pale: rgba(201,149,58,0.12);
-  --dark: #0C0905;
-  --dark-2: #141009;
-  --dark-3: #1C160C;
-  --ivory: #F2E8D5;
-  --ivory-dim: rgba(242,232,213,0.65);
-  --ivory-faint: rgba(242,232,213,0.35);
-  --muted: #7A6E5F;
-  --accent: #B84D1A;
-  --border: rgba(201,149,58,0.15);
-  --border-strong: rgba(201,149,58,0.3);
+  --green:      #1A7A4A;
+  --green-l:    #2EAD6A;
+  --green-pale: rgba(26,122,74,0.10);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Jost', sans-serif; background: var(--dark); color: var(--ivory); overflow-x: hidden; }
+body {
+  font-family: 'Jost', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: background 0.35s, color 0.35s;
+}
 
-/* SCROLLBAR */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--dark); }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--green); border-radius: 2px; }
 
-/* NAV */
+/* ====== NAV ====== */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   display: flex; align-items: center; justify-content: space-between;
   padding: 1.1rem 5rem;
-  background: rgba(12,9,5,0.96);
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
-  transition: padding 0.3s;
+  transition: background 0.35s, border-color 0.35s, padding 0.3s;
 }
 .nav-logo {
   font-family: 'Cormorant Garamond', serif;
   font-size: 1.15rem; font-weight: 700;
-  color: var(--gold); text-decoration: none; line-height: 1.2;
+  color: var(--green); text-decoration: none; line-height: 1.2;
 }
 .nav-logo span {
   display: block; font-family: 'Jost', sans-serif;
@@ -54,14 +87,44 @@ nav {
 }
 .nav-links { display: flex; gap: 3rem; list-style: none; }
 .nav-links a {
-  color: var(--ivory-dim); text-decoration: none;
+  color: var(--text-dim); text-decoration: none;
   font-size: 0.78rem; letter-spacing: 0.15em;
   text-transform: uppercase; font-weight: 500;
   transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover { color: var(--green); }
+
+.nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+/* Theme toggle */
+.theme-toggle {
+  width: 38px; height: 38px;
+  border: 1px solid var(--border-s);
+  background: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text); font-size: 1rem; transition: all 0.2s;
+  flex-shrink: 0;
+}
+.theme-toggle:hover { border-color: var(--green); color: var(--green); }
+
+/* Lang switcher */
+.lang-switcher {
+  display: flex; align-items: center;
+  border: 1px solid var(--border-s); overflow: hidden;
+}
+.lang-btn {
+  background: none; border: none; cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); padding: 0.45rem 0.75rem;
+  transition: all 0.2s;
+}
+.lang-btn.active { background: var(--green); color: #fff; }
+.lang-btn:hover:not(.active) { color: var(--green); }
+
 .nav-cta {
-  background: var(--gold); color: var(--dark);
+  background: var(--green); color: #fff;
   padding: 0.65rem 1.8rem; border: none;
   font-family: 'Jost', sans-serif;
   font-size: 0.75rem; font-weight: 600;
@@ -69,376 +132,311 @@ nav {
   text-decoration: none; cursor: pointer;
   transition: background 0.2s, transform 0.2s;
 }
-.nav-cta:hover { background: var(--ivory); transform: translateY(-1px); }
+.nav-cta:hover { background: var(--green-l); transform: translateY(-1px); }
 
-/* HERO */
+/* ====== HERO ====== */
 .hero {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 55% 45%;
-  position: relative;
-  overflow: hidden;
+  display: grid; grid-template-columns: 55% 45%;
+  position: relative; overflow: hidden;
 }
 .hero-left {
   display: flex; flex-direction: column; justify-content: center;
-  padding: 9rem 5rem 6rem 5rem;
+  padding: 9rem 5rem 6rem;
   position: relative; z-index: 2;
-  background: linear-gradient(105deg, var(--dark) 60%, rgba(12,9,5,0.7));
+  background: var(--bg);
 }
+[data-theme="dark"] .hero-left { background: linear-gradient(105deg, #0D0D0D 60%, rgba(13,13,13,0.7)); }
+[data-theme="light"] .hero-left { background: linear-gradient(105deg, #fff 60%, rgba(255,255,255,0.7)); }
+
 .tag {
   display: inline-flex; align-items: center; gap: 0.9rem;
   font-size: 0.65rem; letter-spacing: 0.42em;
-  text-transform: uppercase; color: var(--gold); font-weight: 600;
-  margin-bottom: 2rem;
+  text-transform: uppercase; color: var(--green); font-weight: 600; margin-bottom: 2rem;
 }
-.tag::before { content: ''; width: 36px; height: 1px; background: var(--gold); display: block; }
+.tag::before { content: ''; width: 36px; height: 1px; background: var(--green); display: block; }
+
 .hero h1 {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(3rem, 5.5vw, 5rem);
-  font-weight: 700; line-height: 1.0;
-  margin-bottom: 1.8rem;
-  letter-spacing: -0.01em;
+  font-weight: 700; line-height: 1.0; margin-bottom: 1.8rem;
 }
-.hero h1 em { color: var(--gold); font-style: italic; }
+.hero h1 em { color: var(--green); font-style: italic; }
 .hero-sub {
   font-size: 1rem; line-height: 1.85;
-  color: var(--ivory-dim); max-width: 420px;
+  color: var(--text-dim); max-width: 420px;
   margin-bottom: 3.5rem; font-weight: 300;
 }
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
-.btn-gold {
-  background: var(--gold); color: var(--dark);
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-green {
+  background: var(--green); color: #fff;
   padding: 1rem 2.8rem; font-family: 'Jost', sans-serif;
   font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em;
   text-transform: uppercase; text-decoration: none;
-  transition: all 0.25s; display: inline-block;
-  border: 2px solid var(--gold);
+  transition: all 0.25s; display: inline-block; border: 2px solid var(--green);
 }
-.btn-gold:hover { background: transparent; color: var(--gold); }
+.btn-green:hover { background: transparent; color: var(--green); }
 .btn-ghost {
-  border: 1px solid var(--border-strong); color: var(--gold);
+  border: 1px solid var(--border-s); color: var(--green);
   padding: 1rem 2.5rem; font-family: 'Jost', sans-serif;
   font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em;
   text-transform: uppercase; text-decoration: none;
   transition: all 0.25s; display: inline-block;
 }
-.btn-ghost:hover { border-color: var(--gold); background: var(--gold-pale); }
+.btn-ghost:hover { border-color: var(--green); background: var(--green-pale); }
 
-/* HERO MOSAIC */
-.hero-right {
-  position: relative;
-  overflow: hidden;
-  padding-top: 80px;
-}
+.hero-right { position: relative; overflow: hidden; padding-top: 80px; }
 .hero-mosaic {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 3px;
-  height: 100%;
+  display: grid; grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr; gap: 3px; height: 100%;
 }
-.mosaic-cell {
-  overflow: hidden; position: relative;
-}
+.mosaic-cell { overflow: hidden; }
 .mosaic-cell.tall { grid-row: 1 / 3; }
-.mosaic-cell img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.7s ease;
-  display: block;
-}
+.mosaic-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; display: block; }
 .mosaic-cell:hover img { transform: scale(1.05); }
 
-/* HERO STRIP */
 .hero-strip {
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 55%;
-  z-index: 5;
-  display: flex;
-  z-index: 10;
-  border-top: 1px solid var(--border);
-  background: rgba(12,9,5,0.95);
+  position: absolute; bottom: 0; left: 0; width: 55%; z-index: 5;
+  display: flex; border-top: 1px solid var(--border);
+  background: var(--strip-bg); backdrop-filter: blur(12px);
 }
 .strip-item {
   flex: 1; padding: 1.3rem 1.5rem;
   border-right: 1px solid var(--border);
-  display: flex; flex-direction: column; align-items: center;
-  text-align: center;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
 }
 .strip-item:last-child { border-right: none; }
 .strip-num {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.7rem; font-weight: 700;
-  color: var(--gold); line-height: 1; margin-bottom: 0.25rem;
+  font-size: 1.7rem; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 0.25rem;
 }
-.strip-label {
-  font-size: 0.6rem; letter-spacing: 0.22em;
-  text-transform: uppercase; color: var(--muted);
-  font-weight: 500;
-}
+.strip-label { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
 
-/* SECTION BASE */
+/* ====== SECTIONS ====== */
 section { padding: 8rem 5rem; }
 .section-inner { max-width: 1200px; margin: 0 auto; }
 h2 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 700; line-height: 1.1;
+  font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 700; line-height: 1.1;
 }
+.line { width: 50px; height: 1px; background: var(--green); opacity: 0.4; margin: 1.5rem 0; }
 
-/* CIRCUITS / OFFRES */
-#circuits { background: var(--dark-2); border-top: 1px solid var(--border); }
+/* ====== CIRCUITS ====== */
+#circuits { background: var(--bg-2); border-top: 1px solid var(--border); }
 .circuits-intro {
   display: flex; justify-content: space-between; align-items: flex-end;
   margin-bottom: 5rem; gap: 2rem;
 }
-.circuits-intro p {
-  max-width: 400px; color: var(--ivory-dim);
-  font-size: 0.95rem; line-height: 1.85; font-weight: 300;
-}
-
-.circuit-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-
+.circuits-intro p { max-width: 400px; color: var(--text-dim); font-size: 0.95rem; line-height: 1.85; font-weight: 300; }
+.circuit-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
 .circuit-card {
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
   display: flex; flex-direction: column;
-  background: var(--dark-3);
-  border: 1px solid var(--border);
-  transition: border-color 0.3s;
+  background: var(--bg-3); border: 1px solid var(--border);
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
-.circuit-card:hover { border-color: var(--border-strong); }
-
-.circuit-img {
-  height: 280px; overflow: hidden; position: relative; flex-shrink: 0;
-}
-.circuit-img img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.7s ease; display: block;
-}
+.circuit-card:hover { border-color: var(--border-s); box-shadow: var(--shadow); }
+.circuit-img { height: 280px; overflow: hidden; position: relative; flex-shrink: 0; }
+.circuit-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; display: block; }
 .circuit-card:hover .circuit-img img { transform: scale(1.06); }
-
 .circuit-badge {
   position: absolute; top: 1.2rem; left: 1.2rem;
-  background: var(--gold); color: var(--dark);
+  background: var(--green); color: #fff;
   padding: 0.35rem 0.9rem;
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
 }
-
 .circuit-body { padding: 2rem; flex: 1; display: flex; flex-direction: column; }
-
-.circuit-num {
-  font-size: 0.62rem; letter-spacing: 0.3em;
-  color: var(--gold); text-transform: uppercase; font-weight: 600;
-  margin-bottom: 0.7rem;
-}
-.circuit-body h3 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem; font-weight: 700; line-height: 1.15;
-  margin-bottom: 0.5rem;
-}
-.circuit-desc {
-  font-size: 0.88rem; color: var(--ivory-dim);
-  line-height: 1.75; font-weight: 300; margin-bottom: 1.8rem; flex: 1;
-}
-
-/* DETAILS ROW */
+.circuit-num { font-size: 0.62rem; letter-spacing: 0.3em; color: var(--green); text-transform: uppercase; font-weight: 600; margin-bottom: 0.7rem; }
+.circuit-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; line-height: 1.15; margin-bottom: 0.5rem; }
+.circuit-desc { font-size: 0.88rem; color: var(--text-dim); line-height: 1.75; font-weight: 300; margin-bottom: 1.8rem; flex: 1; }
 .circuit-details {
   display: flex; flex-direction: column; gap: 0.6rem;
-  margin-bottom: 2rem;
-  padding: 1.2rem;
-  background: rgba(201,149,58,0.05);
-  border: 1px solid var(--border);
+  margin-bottom: 2rem; padding: 1.2rem;
+  background: var(--card-bg); border: 1px solid var(--border);
 }
-.detail-row {
-  display: flex; align-items: flex-start; gap: 0.7rem;
-}
-.detail-icon {
-  width: 18px; height: 18px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--gold); font-size: 0.75rem; margin-top: 0.1rem;
-}
-.detail-text {
-  font-size: 0.82rem; color: var(--ivory-dim); font-weight: 300; line-height: 1.5;
-}
-.detail-text strong { color: var(--ivory); font-weight: 500; }
-
-/* PRICE BOX */
+.detail-row { display: flex; align-items: flex-start; gap: 0.7rem; }
+.detail-icon { width: 18px; flex-shrink: 0; color: var(--green); font-size: 0.55rem; margin-top: 0.35rem; }
+.detail-text { font-size: 0.82rem; color: var(--text-dim); font-weight: 300; line-height: 1.5; }
+.detail-text strong { color: var(--text); font-weight: 500; }
 .circuit-price-row {
   display: flex; align-items: center; justify-content: space-between;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
-  margin-top: auto;
+  padding-top: 1.5rem; border-top: 1px solid var(--border); margin-top: auto;
 }
 .price-block { display: flex; flex-direction: column; }
 .price-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
-.price-amount {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem; font-weight: 700; color: var(--gold); line-height: 1;
-}
+.price-amount { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--green); line-height: 1; }
 .price-per { font-size: 0.72rem; color: var(--muted); font-weight: 300; }
 .reserve-btn {
-  background: var(--gold); color: var(--dark);
-  padding: 0.85rem 1.8rem; border: 2px solid var(--gold);
+  background: var(--green); color: #fff;
+  padding: 0.85rem 1.8rem; border: 2px solid var(--green);
   font-family: 'Jost', sans-serif;
   font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
   text-transform: uppercase; text-decoration: none;
   transition: all 0.2s; display: inline-block; white-space: nowrap;
 }
-.reserve-btn:hover { background: transparent; color: var(--gold); }
+.reserve-btn:hover { background: transparent; color: var(--green); }
 
-/* GALLERY */
-#gallery { background: var(--dark); border-top: 1px solid var(--border); }
-.gallery-header { margin-bottom: 0; }
+/* ====== CURRENCY CONVERTER ====== */
+#converter { background: var(--bg); border-top: 1px solid var(--border); }
+.conv-wrap {
+  background: var(--conv-bg);
+  border: 1px solid var(--border-s);
+  padding: 3rem; max-width: 700px; margin: 0 auto;
+}
+.conv-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; font-weight: 700; margin-bottom: 0.4rem;
+}
+.conv-subtitle { font-size: 0.85rem; color: var(--text-dim); margin-bottom: 2.5rem; line-height: 1.6; }
+
+.conv-grid {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: end; margin-bottom: 1.5rem;
+}
+.conv-field label {
+  display: block; font-size: 0.65rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 0.5rem;
+}
+.conv-field input, .conv-field select {
+  width: 100%; padding: 0.9rem 1rem;
+  background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text); font-family: 'Jost', sans-serif; font-size: 1rem;
+  font-weight: 500; outline: none; appearance: none; transition: border-color 0.2s;
+}
+.conv-field input:focus, .conv-field select:focus { border-color: var(--green); }
+.conv-field select option { background: var(--bg-2); }
+.conv-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; color: var(--green); padding-bottom: 0.2rem; font-weight: 300; margin-top: 1.4rem;
+}
+.conv-result {
+  background: var(--green-pale);
+  border: 1px solid var(--border-s);
+  padding: 1.2rem 1.5rem;
+  display: flex; align-items: baseline; gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.conv-result-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem; font-weight: 700; color: var(--green); line-height: 1;
+}
+.conv-result-cur { font-size: 0.85rem; color: var(--muted); }
+.conv-result-eq { font-size: 0.8rem; color: var(--text-dim); margin-left: auto; }
+.conv-rate-info { font-size: 0.72rem; color: var(--muted); margin-top: 0.8rem; }
+
+.conv-presets { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+.preset-btn {
+  background: none; border: 1px solid var(--border);
+  color: var(--text-dim); font-family: 'Jost', sans-serif;
+  font-size: 0.72rem; padding: 0.4rem 0.9rem; cursor: pointer;
+  transition: all 0.2s;
+}
+.preset-btn:hover { border-color: var(--green); color: var(--green); background: var(--green-pale); }
+
+/* ====== GALLERY ====== */
+#gallery { background: var(--bg-2); border-top: 1px solid var(--border); }
 .gallery-tabs {
-  display: flex; gap: 0; margin-top: 2.5rem;
+  display: flex; margin-top: 2.5rem;
   border-bottom: 1px solid var(--border);
 }
 .tab-btn {
-  background: none; border: none;
-  border-bottom: 2px solid transparent;
+  background: none; border: none; border-bottom: 2px solid transparent;
   padding: 0.9rem 2.2rem; color: var(--muted);
   font-family: 'Jost', sans-serif; font-size: 0.78rem;
   font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
   cursor: pointer; transition: all 0.2s; margin-bottom: -1px;
 }
-.tab-btn:hover { color: var(--ivory); }
-.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
-
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
 .gallery-pane { display: none; padding-top: 2rem; }
 .gallery-pane.active { display: block; }
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px;
-}
-.gallery-item {
-  aspect-ratio: 4/3; overflow: hidden;
-  cursor: pointer; position: relative;
-}
-.gallery-item img {
-  width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s ease; display: block;
-}
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+.gallery-item { aspect-ratio: 4/3; overflow: hidden; cursor: pointer; position: relative; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; display: block; }
 .gallery-item:hover img { transform: scale(1.06); }
 .g-overlay {
-  position: absolute; inset: 0;
-  background: rgba(12,9,5,0);
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.3s;
+  position: absolute; inset: 0; background: transparent;
+  display: flex; align-items: center; justify-content: center; transition: background 0.3s;
 }
-.gallery-item:hover .g-overlay { background: rgba(12,9,5,0.45); }
+.gallery-item:hover .g-overlay { background: var(--overlay); }
 .g-overlay span {
   font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--ivory); opacity: 0; transition: opacity 0.3s;
-  border: 1px solid rgba(242,232,213,0.5); padding: 0.45rem 1.1rem;
+  color: #fff; opacity: 0; transition: opacity 0.3s;
+  border: 1px solid rgba(255,255,255,0.5); padding: 0.45rem 1.1rem;
 }
 .gallery-item:hover .g-overlay span { opacity: 1; }
 
-/* LIGHTBOX */
+/* ====== LIGHTBOX ====== */
 .lightbox {
   position: fixed; inset: 0; z-index: 9999;
-  background: rgba(8,6,3,0.97);
+  background: var(--lb-bg);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; pointer-events: none; transition: opacity 0.3s;
 }
 .lightbox.open { opacity: 1; pointer-events: all; }
-.lightbox img {
-  max-width: 90vw; max-height: 88vh; object-fit: contain;
-  border: 1px solid var(--border);
-}
+.lightbox img { max-width: 90vw; max-height: 88vh; object-fit: contain; border: 1px solid var(--border); }
 .lb-close {
   position: absolute; top: 2rem; right: 2.5rem;
   background: none; border: 1px solid var(--border);
-  color: var(--ivory); font-size: 1.2rem; width: 44px; height: 44px;
+  color: #fff; font-size: 1.2rem; width: 44px; height: 44px;
   cursor: pointer; opacity: 0.7; transition: opacity 0.2s;
-  font-family: 'Jost', sans-serif; display: flex; align-items: center; justify-content: center;
+  display: flex; align-items: center; justify-content: center;
 }
-.lb-close:hover { opacity: 1; border-color: var(--gold); color: var(--gold); }
+.lb-close:hover { opacity: 1; border-color: var(--green); color: var(--green); }
 
-/* CONTACT */
-#contact { background: var(--dark-2); border-top: 1px solid var(--border); }
-.contact-grid {
-  display: grid; grid-template-columns: 1fr 1.1fr;
-  gap: 7rem; align-items: start;
-}
+/* ====== CONTACT ====== */
+#contact { background: var(--bg-2); border-top: 1px solid var(--border); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 7rem; align-items: start; }
 .contact-info h2 { margin-bottom: 1rem; }
-.contact-info > p {
-  color: var(--ivory-dim); line-height: 1.9;
-  font-size: 0.95rem; font-weight: 300; margin-bottom: 3rem;
-}
+.contact-info > p { color: var(--text-dim); line-height: 1.9; font-size: 0.95rem; font-weight: 300; margin-bottom: 3rem; }
 .contact-items { display: flex; flex-direction: column; gap: 1.3rem; }
 .contact-item { display: flex; align-items: center; gap: 1.2rem; }
 .c-icon {
   width: 46px; height: 46px; flex-shrink: 0;
-  background: var(--gold-pale); border: 1px solid var(--border-strong);
+  background: var(--green-pale); border: 1px solid var(--border-s);
   display: flex; align-items: center; justify-content: center;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem; color: var(--gold); font-weight: 700;
+  font-size: 1.1rem; color: var(--green); font-weight: 700;
 }
 .c-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
-.c-value { font-size: 0.95rem; color: var(--ivory); }
-.c-value a { color: var(--ivory); text-decoration: none; transition: color 0.2s; }
-.c-value a:hover { color: var(--gold); }
-
-/* FORM */
-.form-wrap {
-  background: var(--dark-3); border: 1px solid var(--border); padding: 2.8rem;
-}
-.form-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem;
-}
+.c-value { font-size: 0.95rem; color: var(--text); }
+.c-value a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+.c-value a:hover { color: var(--green); }
+.form-wrap { background: var(--bg-3); border: 1px solid var(--border); padding: 2.8rem; }
+.form-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 .fg { margin-bottom: 1.1rem; }
-.fg label {
-  display: block; font-size: 0.65rem; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 0.5rem;
-}
+.fg label { display: block; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 0.5rem; }
 .fg input, .fg select, .fg textarea {
   width: 100%; padding: 0.85rem 1rem;
-  background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  color: var(--ivory); font-family: 'Jost', sans-serif; font-size: 0.9rem;
+  background: var(--input-bg); border: 1px solid var(--border);
+  color: var(--text); font-family: 'Jost', sans-serif; font-size: 0.9rem;
   transition: border-color 0.2s; outline: none; appearance: none;
 }
-.fg input:focus, .fg select:focus, .fg textarea:focus {
-  border-color: rgba(201,149,58,0.55); background: var(--gold-pale);
-}
-.fg select option { background: var(--dark-2); }
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--green); background: var(--green-pale); }
+.fg select option { background: var(--bg-2); }
 .fg textarea { min-height: 85px; resize: vertical; }
 .fg input::placeholder, .fg textarea::placeholder { color: var(--muted); }
 .form-submit {
-  width: 100%; background: var(--gold); color: var(--dark);
-  padding: 1.1rem; border: 2px solid var(--gold);
+  width: 100%; background: var(--green); color: #fff;
+  padding: 1.1rem; border: 2px solid var(--green);
   font-family: 'Jost', sans-serif; font-size: 0.82rem; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer;
   transition: all 0.25s; margin-top: 0.5rem;
 }
-.form-submit:hover { background: transparent; color: var(--gold); }
+.form-submit:hover { background: transparent; color: var(--green); }
 
-/* FOOTER */
+/* ====== FOOTER ====== */
 footer {
-  background: var(--dark); border-top: 1px solid var(--border);
+  background: var(--bg); border-top: 1px solid var(--border);
   padding: 2.5rem 5rem;
   display: flex; align-items: center; justify-content: space-between;
 }
-.footer-brand {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem; font-weight: 700; color: var(--gold);
-}
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 700; color: var(--green); }
 footer p { font-size: 0.78rem; color: var(--muted); }
 footer a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-footer a:hover { color: var(--gold); }
+footer a:hover { color: var(--green); }
 
-/* DIVIDER */
-.line { width: 50px; height: 1px; background: var(--gold); opacity: 0.4; margin: 1.5rem 0; }
-
-/* FADE IN ANIMATION */
+/* ====== ANIMATIONS ====== */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -448,77 +446,52 @@ footer a:hover { color: var(--gold); }
 .hero-sub     { animation: fadeUp 0.7s ease 0.2s both; }
 .hero-actions { animation: fadeUp 0.7s ease 0.3s both; }
 
-/* ============================================
-   RESPONSIVE — TABLETTE (max 1024px)
-   ============================================ */
+/* ====== RESPONSIVE — TABLET ====== */
 @media (max-width: 1024px) {
   nav { padding: 1rem 2rem; }
   .nav-links { gap: 1.5rem; }
-
   section { padding: 5rem 2.5rem; }
   footer { padding: 2rem 2.5rem; }
-
   .hero { grid-template-columns: 1fr; min-height: 100vh; }
-  .hero-left { padding: 8rem 2.5rem 3rem; background: linear-gradient(to bottom, var(--dark) 70%, rgba(12,9,5,0.85)); }
+  .hero-left { padding: 8rem 2.5rem 3rem; }
   .hero-right { height: 55vw; max-height: 420px; padding-top: 0; }
   .hero-mosaic { height: 100%; }
   .hero-strip { width: 100%; position: relative; bottom: auto; left: auto; }
-
   .circuits-intro { flex-direction: column; align-items: flex-start; gap: 1rem; margin-bottom: 3rem; }
   .circuit-cards { grid-template-columns: 1fr; gap: 1.5rem; }
   .circuit-img { height: 240px; }
-
   .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .conv-grid { grid-template-columns: 1fr; }
+  .conv-arrow { transform: rotate(90deg); margin: 0 auto; }
 }
 
-/* ============================================
-   RESPONSIVE — MOBILE (max 640px)
-   ============================================ */
+/* ====== RESPONSIVE — MOBILE ====== */
 @media (max-width: 640px) {
-  /* NAV */
-  nav {
-    padding: 0.9rem 1.2rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
+  nav { padding: 0.9rem 1.2rem; flex-wrap: wrap; gap: 0.5rem; }
   .nav-links { display: none; }
   .nav-cta { padding: 0.55rem 1.2rem; font-size: 0.7rem; }
+  .nav-right { gap: 0.5rem; }
+  .lang-btn { padding: 0.4rem 0.6rem; font-size: 0.62rem; }
+  .theme-toggle { width: 32px; height: 32px; font-size: 0.85rem; }
 
-  /* HERO */
   .hero { grid-template-columns: 1fr; min-height: auto; }
-
-  .hero-left {
-    padding: 7rem 1.2rem 2rem;
-    background: var(--dark);
-  }
+  .hero-left { padding: 7rem 1.2rem 2rem; }
   .hero h1 { font-size: 2.6rem; line-height: 1.05; }
   .hero-sub { font-size: 0.9rem; margin-bottom: 2rem; }
   .hero-actions { flex-direction: column; gap: 0.75rem; }
-  .btn-gold, .btn-ghost { text-align: center; width: 100%; padding: 0.9rem 1.5rem; }
-
-  .hero-right {
-    height: 260px;
-    padding-top: 0;
-  }
+  .btn-green, .btn-ghost { text-align: center; width: 100%; padding: 0.9rem 1.5rem; }
+  .hero-right { height: 260px; padding-top: 0; }
   .hero-mosaic { height: 100%; gap: 2px; }
-
-  /* HERO STRIP */
-  .hero-strip {
-    position: relative; bottom: auto; left: auto; width: 100%;
-    border-top: 1px solid var(--border);
-  }
+  .hero-strip { position: relative; bottom: auto; left: auto; width: 100%; }
   .strip-item { padding: 1rem 0.5rem; }
   .strip-num { font-size: 1.4rem; }
   .strip-label { font-size: 0.55rem; }
 
-  /* SECTIONS */
   section { padding: 4rem 1.2rem; }
   .section-inner { padding: 0; }
   h2 { font-size: 1.9rem; }
 
-  /* CIRCUITS */
   .circuits-intro { flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
   .circuits-intro p { max-width: 100%; font-size: 0.88rem; }
   .circuit-cards { grid-template-columns: 1fr; gap: 1.2rem; }
@@ -532,93 +505,79 @@ footer a:hover { color: var(--gold); }
   .circuit-price-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .reserve-btn { width: 100%; text-align: center; padding: 0.9rem 1rem; }
 
-  /* GALLERY */
+  .conv-wrap { padding: 1.8rem 1.2rem; }
+  .conv-grid { grid-template-columns: 1fr; }
+  .conv-arrow { transform: rotate(90deg); margin: 0.5rem auto; }
+  .conv-result { flex-direction: column; gap: 0.3rem; }
+  .conv-result-eq { margin-left: 0; }
+  .preset-btn { font-size: 0.68rem; padding: 0.35rem 0.7rem; }
+
   .gallery-tabs { flex-wrap: wrap; gap: 0.3rem; border-bottom: none; }
   .tab-btn { padding: 0.6rem 1.2rem; border: 1px solid var(--border); margin-bottom: 0; font-size: 0.72rem; }
-  .tab-btn.active { border-color: var(--gold); border-bottom-color: var(--gold); }
+  .tab-btn.active { border-color: var(--green); border-bottom-color: var(--green); }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 2px; }
   .gallery-item { aspect-ratio: 1; }
 
-  /* CONTACT */
   .contact-grid { gap: 2.5rem; }
   .contact-info h2 { font-size: 1.9rem; }
   .contact-info > p { font-size: 0.88rem; margin-bottom: 2rem; }
   .contact-items { gap: 1rem; }
   .c-icon { width: 38px; height: 38px; font-size: 0.95rem; }
   .c-value { font-size: 0.88rem; }
-
   .form-wrap { padding: 1.8rem 1.2rem; }
   .form-row { grid-template-columns: 1fr; gap: 0; }
   .fg input, .fg select, .fg textarea { padding: 0.75rem 0.8rem; font-size: 0.88rem; }
   .form-submit { padding: 1rem; font-size: 0.78rem; }
 
-  /* FOOTER */
-  footer {
-    flex-direction: column; gap: 0.6rem; text-align: center;
-    padding: 1.8rem 1.2rem;
-  }
-
-  /* LIGHTBOX */
+  footer { flex-direction: column; gap: 0.6rem; text-align: center; padding: 1.8rem 1.2rem; }
   .lightbox img { max-width: 96vw; max-height: 80vh; }
   .lb-close { top: 1rem; right: 1rem; width: 36px; height: 36px; font-size: 1rem; }
 }
-
 </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">A Tourist Guide
-    <span>in Senegal</span>
-  </a>
+  <a href="#" class="nav-logo">A Tourist Guide<span>in Senegal</span></a>
   <ul class="nav-links">
-    <li><a href="#circuits">Circuits</a></li>
-    <li><a href="#gallery">Galerie</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#circuits" data-i18n="nav.circuits">Circuits</a></li>
+    <li><a href="#converter" data-i18n="nav.converter">Convertisseur</a></li>
+    <li><a href="#gallery" data-i18n="nav.gallery">Galerie</a></li>
+    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Reserver</a>
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Mode clair/sombre">&#9790;</button>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('fr', this)">FR</button>
+      <button class="lang-btn" onclick="setLang('en', this)">EN</button>
+    </div>
+    <a href="#contact" class="nav-cta" data-i18n="nav.cta">Reserver</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="tag">Guide touristique — Dakar, Senegal</div>
-    <h1>Decouvrez<br>le <em>Senegal</em><br>sauvage</h1>
-    <p class="hero-sub">Lac Rose, reserves naturelles, lions et elephants — des aventures authentiques guidees par un expert local depuis Dakar.</p>
+    <div class="tag" data-i18n="hero.tag">Guide touristique — Dakar, Senegal</div>
+    <h1 data-i18n-html="hero.title">Decouvrez<br>le <em>Senegal</em><br>sauvage</h1>
+    <p class="hero-sub" data-i18n="hero.sub">Lac Rose, reserves naturelles, lions et  — des aventures authentiques guidees par un expert local depuis Dakar.</p>
     <div class="hero-actions">
-      <a href="#circuits" class="btn-gold">Voir les circuits</a>
-      <a href="#contact" class="btn-ghost">Nous contacter</a>
+      <a href="#circuits" class="btn-green" data-i18n="hero.btn1">Voir les circuits</a>
+      <a href="#contact" class="btn-ghost" data-i18n="hero.btn2">Nous contacter</a>
     </div>
   </div>
-
   <div class="hero-right">
     <div class="hero-mosaic">
-      <div class="mosaic-cell tall">
-        <img src="images/ftalh.jpeg" alt="Safari Senegal">
-      </div>
-      <div class="mosaic-cell">
-        <img src="images/lac rose2.jpeg" alt="Lac Rose">
-      </div>
-      <div class="mosaic-cell">
-        <img src="images/chevre.jpeg" alt="Reserve Bandian">
-      </div>
+      <div class="mosaic-cell tall"><img src="images/ftalh.jpeg" alt="Safari Senegal"></div>
+      <div class="mosaic-cell"><img src="images/lac rose2.jpeg" alt="Lac Rose"></div>
+      <div class="mosaic-cell"><img src="images/chevre.jpeg" alt="Reserve Bandian"></div>
     </div>
   </div>
-
   <div class="hero-strip">
-    <div class="strip-item">
-      <span class="strip-num">3</span>
-      <span class="strip-label">Destinations</span>
-    </div>
-    <div class="strip-item">
-      <span class="strip-num">7j/7</span>
-      <span class="strip-label">Disponible</span>
-    </div>
-    <div class="strip-item">
-      <span class="strip-num">24h</span>
-      <span class="strip-label">Confirmation</span>
-    </div>
+    <div class="strip-item"><span class="strip-num">3</span><span class="strip-label" data-i18n="strip.destinations">Destinations</span></div>
+    <div class="strip-item"><span class="strip-num">7j/7</span><span class="strip-label" data-i18n="strip.available">Disponible</span></div>
+    <div class="strip-item"><span class="strip-num">24h</span><span class="strip-label" data-i18n="strip.confirm">Confirmation</span></div>
   </div>
 </section>
 
@@ -627,47 +586,35 @@ footer a:hover { color: var(--gold); }
   <div class="section-inner">
     <div class="circuits-intro">
       <div>
-        <div class="tag">Nos offres</div>
-        <h2>Trois circuits, une seule passion</h2>
+        <div class="tag" data-i18n="circuits.tag">Nos offres</div>
+        <h2 data-i18n="circuits.title">Trois circuits, une seule passion</h2>
       </div>
-      <p>Transport depuis Dakar inclus. Groupes de maximum 8 personnes pour une experience intime et authentique avec votre guide local.</p>
+      <p data-i18n="circuits.desc">Transport depuis Dakar inclus. Groupes de maximum 8 personnes pour une experience intime et authentique avec votre guide local.</p>
     </div>
-
     <div class="circuit-cards">
 
       <!-- LAC ROSE -->
       <div class="circuit-card">
         <div class="circuit-img">
           <img src="images/lac rose 3.jpeg" alt="Lac Rose">
-          <div class="circuit-badge">Le plus populaire</div>
+          <div class="circuit-badge" data-i18n="lr.badge">Le plus populaire</div>
         </div>
         <div class="circuit-body">
           <div class="circuit-num">Circuit 01</div>
           <h3>Lac Rose</h3>
-          <p class="circuit-desc">Le lac aux eaux rose unique au monde, a seulement 35 km de Dakar. Un phenomene naturel epoustouflant a ne pas manquer.</p>
-
+          <p class="circuit-desc" data-i18n="lr.desc">Le lac aux eaux rose unique au monde, a seulement 35 km de Dakar. Un phenomene naturel epoustouflant a ne pas manquer.</p>
           <div class="circuit-details">
-            <div class="detail-row">
-              <div class="detail-icon">&#9679;</div>
-              <div class="detail-text"><strong>Trajet :</strong> Dakar — Lac Rose — 2h</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon">&#9679;</div>
-              <div class="detail-text"><strong>Activites :</strong> Quad, promenade en chameau ou a cheval, visite du lac en pirogue</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon">&#9679;</div>
-              <div class="detail-text"><strong>Duree activites :</strong> 3 h maximum</div>
-            </div>
+            <div class="detail-row"><div class="detail-icon">&#9679;</div><div class="detail-text"><strong data-i18n="label.route">Trajet :</strong> <span data-i18n="lr.route">Dakar — Lac Rose — 2h</span></div></div>
+            <div class="detail-row"><div class="detail-icon">&#9679;</div><div class="detail-text"><strong data-i18n="label.activities">Activites :</strong> <span data-i18n="lr.activities">Quad, promenade en chameau ou a cheval, visite du lac en pirogue</span></div></div>
+            <div class="detail-row"><div class="detail-icon">&#9679;</div><div class="detail-text"><strong data-i18n="label.duration">Duree :</strong> <span data-i18n="lr.duration">3 h maximum</span></div></div>
           </div>
-
           <div class="circuit-price-row">
             <div class="price-block">
-              <span class="price-label">Tarif</span>
+              <span class="price-label" data-i18n="label.price">Tarif</span>
               <span class="price-amount">58 000</span>
-              <span class="price-per">FCFA / personne</span>
+              <span class="price-per" data-i18n="label.per">FCFA / personne</span>
             </div>
-            <a href="#contact" class="reserve-btn">Reserver</a>
+            <a href="#contact" class="reserve-btn" data-i18n="label.book">Reserver</a>
           </div>
         </div>
       </div>
@@ -676,35 +623,24 @@ footer a:hover { color: var(--gold); }
       <div class="circuit-card">
         <div class="circuit-img">
           <img src="images/bandia4.jpeg" alt="Reserve Bandian">
-          <div class="circuit-badge">Decouverte faune</div>
+          <div class="circuit-badge" data-i18n="bd.badge">Decouverte faune</div>
         </div>
         <div class="circuit-body">
           <div class="circuit-num">Circuit 02</div>
           <h3>Reserve Bandian</h3>
-          <p class="circuit-desc">Un safari authentique au coeur d'une reserve protegee. Hippopotames, crocodiles, oiseaux rares — et une rencontre avec les lions en voiture.</p>
-
+          <p class="circuit-desc" data-i18n="bd.desc">Un safari authentique au coeur d'une reserve protegee. Hippopotames, crocodiles, oiseaux rares — et une rencontre avec les lions en voiture.</p>
           <div class="circuit-details">
-            <div class="detail-row">
-              <div class="detail-icon">&#9679;</div>
-              <div class="detail-text"><strong>Trajet :</strong> Dakar — Bandian 2h 15 / Lac Rose — Bandian 1h 30</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon">&#9679;</div>
-              <div class="detail-text"><strong>Activites :</strong> Safari complet de la reserve + visite des lions (en voiture)</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon">&#9679;</div>
-              <div class="detail-text"><strong>Duree :</strong> Safari 2h + lions 30 mn</div>
-            </div>
+            <div class="detail-row"><div class="detail-icon">&#9679;</div><div class="detail-text"><strong data-i18n="label.route">Trajet :</strong> <span data-i18n="bd.route">Dakar — Bandian 2h15 / Lac Rose — Bandian 1h30</span></div></div>
+            <div class="detail-row"><div class="detail-icon">&#9679;</div><div class="detail-text"><strong data-i18n="label.activities">Activites :</strong> <span data-i18n="bd.activities">Safari complet + visite des lions (en voiture)</span></div></div>
+            <div class="detail-row"><div class="detail-icon">&#9679;</div><div class="detail-text"><strong data-i18n="label.duration">Duree :</strong> <span data-i18n="bd.duration">Safari 2h + lions 30 mn</span></div></div>
           </div>
-
           <div class="circuit-price-row">
             <div class="price-block">
-              <span class="price-label">Tarif</span>
+              <span class="price-label" data-i18n="label.price">Tarif</span>
               <span class="price-amount">90 000</span>
-              <span class="price-per">FCFA / personne</span>
+              <span class="price-per" data-i18n="label.per">FCFA / personne</span>
             </div>
-            <a href="#contact" class="reserve-btn">Reserver</a>
+            <a href="#contact" class="reserve-btn" data-i18n="label.book">Reserver</a>
           </div>
         </div>
       </div>
@@ -713,39 +649,77 @@ footer a:hover { color: var(--gold); }
       <div class="circuit-card">
         <div class="circuit-img">
           <img src="images/fatalha_lon1.jpeg" alt="Reserve Fathala">
-          <div class="circuit-badge">Experience unique</div>
+          <div class="circuit-badge" data-i18n="ft.badge">Experience unique</div>
         </div>
         <div class="circuit-body">
           <div class="circuit-num">Circuit 03</div>
           <h3>Reserve Fathala</h3>
-          <p class="circuit-desc">L'experience ultime : promenade a pied avec des lions, elephants, rhinoceros — une immersion totale dans la nature senegalaise sauvage.</p>
-
+          <p class="circuit-desc" data-i18n="ft.desc">L'experience ultime : promenade avec des lions, , rhinoceros — une immersion totale dans la nature senegalaise sauvage.</p>
           <div class="circuit-details">
-            <div class="detail-row">
-              <div class="detail-icon">&#9679;</div>
-              <div class="detail-text"><strong>Trajet :</strong> Dakar — Fathala 4h / Lac Rose — Fathala 4h 30</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon">&#9679;</div>
-              <div class="detail-text"><strong>Activites :</strong> Safari complet + promenade avec les lions</div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-icon">&#9679;</div>
-              <div class="detail-text"><strong>Duree visite :</strong> 2 a 3 h</div>
-            </div>
+            <div class="detail-row"><div class="detail-icon">&#9679;</div><div class="detail-text"><strong data-i18n="label.route">Trajet :</strong> <span data-i18n="ft.route">Dakar — Fathala 4h / Lac Rose — Fathala 4h30</span></div></div>
+            <div class="detail-row"><div class="detail-icon">&#9679;</div><div class="detail-text"><strong data-i18n="label.activities">Activites :</strong> <span data-i18n="ft.activities">Safari complet + promenade avec les lions</span></div></div>
+            <div class="detail-row"><div class="detail-icon">&#9679;</div><div class="detail-text"><strong data-i18n="label.duration">Duree :</strong> <span data-i18n="ft.duration">2 a 3 h</span></div></div>
           </div>
-
           <div class="circuit-price-row">
             <div class="price-block">
-              <span class="price-label">Tarif</span>
+              <span class="price-label" data-i18n="label.price">Tarif</span>
               <span class="price-amount">87 000</span>
-              <span class="price-per">FCFA / personne</span>
+              <span class="price-per" data-i18n="label.per">FCFA / personne</span>
             </div>
-            <a href="#contact" class="reserve-btn">Reserver</a>
+            <a href="#contact" class="reserve-btn" data-i18n="label.book">Reserver</a>
           </div>
         </div>
       </div>
 
+    </div>
+  </div>
+</section>
+
+<!-- CURRENCY CONVERTER -->
+<section id="converter">
+  <div class="section-inner">
+    <div style="text-align:center; margin-bottom:3rem;">
+      <div class="tag" style="justify-content:center;" data-i18n="conv.tag">Convertisseur</div>
+      <h2 data-i18n="conv.title">Convertir le Franc CFA</h2>
+      <p style="color:var(--text-dim);margin-top:0.8rem;font-size:0.9rem;font-weight:300;" data-i18n="conv.subtitle">Estimez le cout de votre sejour dans votre devise</p>
+    </div>
+    <div class="conv-wrap">
+      <div class="conv-grid">
+        <div class="conv-field">
+          <label data-i18n="conv.amount">Montant (FCFA)</label>
+          <input type="number" id="convAmount" value="58000" min="0" oninput="convertCurrency()">
+        </div>
+        <div class="conv-arrow">&#8594;</div>
+        <div class="conv-field">
+          <label data-i18n="conv.currency">Devise cible</label>
+          <select id="convTarget" onchange="convertCurrency()">
+            <option value="EUR">Euro (EUR)</option>
+            <option value="USD">Dollar US (USD)</option>
+            <option value="GBP">Livre Sterling (GBP)</option>
+            <option value="CAD">Dollar Canadien (CAD)</option>
+            <option value="CHF">Franc Suisse (CHF)</option>
+            <option value="MAD">Dirham Marocain (MAD)</option>
+            <option value="DZD">Dinar Algerien (DZD)</option>
+            <option value="TND">Dinar Tunisien (TND)</option>
+            <option value="NGN">Naira Nigerian (NGN)</option>
+            <option value="GHS">Cedi Ghaneen (GHS)</option>
+            <option value="JPY">Yen Japonais (JPY)</option>
+            <option value="CNY">Yuan Chinois (CNY)</option>
+          </select>
+        </div>
+      </div>
+      <div class="conv-result">
+        <span class="conv-result-num" id="convResult">—</span>
+        <span class="conv-result-cur" id="convCur">EUR</span>
+        <span class="conv-result-eq" id="convEq"></span>
+      </div>
+      <div class="conv-rate-info" id="convRateInfo"></div>
+      <div class="conv-presets">
+        <span style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.15em;align-self:center;" data-i18n="conv.quick">Nos prix :</span>
+        <button class="preset-btn" onclick="setPreset(58000)">58 000 FCFA</button>
+        <button class="preset-btn" onclick="setPreset(90000)">90 000 FCFA</button>
+        <button class="preset-btn" onclick="setPreset(87000)">87 000 FCFA</button>
+      </div>
     </div>
   </div>
 </section>
@@ -753,147 +727,421 @@ footer a:hover { color: var(--gold); }
 <!-- GALLERY -->
 <section id="gallery">
   <div class="section-inner">
-    <div class="gallery-header">
-      <div class="tag">Photos</div>
-      <h2>Galerie de voyage</h2>
-
-      <div class="gallery-tabs">
-        <button class="tab-btn active" onclick="showGallery('lac-rose', this)">Lac Rose</button>
-        <button class="tab-btn" onclick="showGallery('bandian', this)">Bandian</button>
-        <button class="tab-btn" onclick="showGallery('fathala', this)">Fathala</button>
-      </div>
+    <div class="tag" data-i18n="gallery.tag">Photos</div>
+    <h2 data-i18n="gallery.title">Galerie de voyage</h2>
+    <div class="gallery-tabs">
+      <button class="tab-btn active" onclick="showGallery('lac-rose', this)">Lac Rose</button>
+      <button class="tab-btn" onclick="showGallery('bandian', this)">Bandian</button>
+      <button class="tab-btn" onclick="showGallery('fathala', this)">Fathala</button>
     </div>
-
-    <!-- Lac Rose -->
     <div class="gallery-pane active" id="gallery-lac-rose">
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/lac rose 3.jpeg" alt="Lac Rose 1">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/lac rose2.jpeg" alt="Lac Rose 2">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/lac rose 1.jpeg" alt="Lac Rose 3">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/lac rose 3.jpeg" alt="Lac Rose 1"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/lac rose2.jpeg" alt="Lac Rose 2"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/lac rose 1.jpeg" alt="Lac Rose 3"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
       </div>
     </div>
-
-    <!-- Bandian -->
     <div class="gallery-pane" id="gallery-bandian">
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/bandia.jpeg" alt="Bandian 1">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/bandia3.jpeg" alt="Bandian 2">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/bandia3_boeuf.jpeg" alt="Bandian 3">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/badian2.jpeg" alt="Bandian 4">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/bandia.jpeg" alt="Bandian 1"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/bandia3.jpeg" alt="Bandian 2"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/bandia3_boeuf.jpeg" alt="Bandian 3"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/badian2.jpeg" alt="Bandian 4"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
       </div>
     </div>
-
-    <!-- Fathala -->
     <div class="gallery-pane" id="gallery-fathala">
       <div class="gallery-grid">
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/fatalah.jpeg" alt="Fathala 1">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/ftalh.jpeg" alt="Fathala 2">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/ftalahhh.jpeg" alt="Fathala 3">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/bandia3.jpeg" alt="Fathala 4">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/fatalha_homme.jpeg" alt="Fathala 5">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/fatalahh.jpeg" alt="Fathala 6">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/ftalahhh.jpeg" alt="Fathala 7">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/bandia2.jpeg" alt="Fathala 8">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="images/fatalha_lon1.jpeg" alt="Fathala 9">
-          <div class="g-overlay"><span>Agrandir</span></div>
-        </div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/fatalah.jpeg" alt="Fathala 1"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/ftalh.jpeg" alt="Fathala 2"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/ftalahhh.jpeg" alt="Fathala 3"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/fatalha_homme.jpeg" alt="Fathala 4"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/fatalahh.jpeg" alt="Fathala 5"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
+        <div class="gallery-item" onclick="openLightbox(this)"><img src="images/fatalha_lon1.jpeg" alt="Fathala 6"><div class="g-overlay"><span data-i18n="gallery.zoom">Agrandir</span></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">&#10005;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="tag" data-i18n="contact.tag">Contact</div>
+        <h2 data-i18n="contact.title">Reservez votre aventure</h2>
+        <div class="line"></div>
+        <p data-i18n="contact.desc">Appelez-nous ou remplissez le formulaire. Confirmation sous 24h. Depart depuis Dakar, transport inclus.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="c-icon">T</div>
+            <div>
+              <div class="c-label" data-i18n="contact.phone.label">Telephone & WhatsApp</div>
+              <div class="c-value"><a href="tel:+221778471181">+221 77 847 11 81</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">D</div>
+            <div>
+              <div class="c-label" data-i18n="contact.depart.label">Point de depart</div>
+              <div class="c-value" data-i18n="contact.depart.value">Dakar, Senegal</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="c-icon">H</div>
+            <div>
+              <div class="c-label" data-i18n="contact.hours.label">Disponibilite</div>
+              <div class="c-value" data-i18n="contact.hours.value">7j/7 — toute l'annee</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-wrap">
+        <div class="form-title" data-i18n="form.title">Demande de reservation</div>
+        <form onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="fg"><label data-i18n="form.name">Votre nom</label><input type="text" data-i18n-placeholder="form.name.ph" placeholder="Mamadou Diop" required></div>
+            <div class="fg"><label data-i18n="form.phone">Telephone / WhatsApp</label><input type="tel" placeholder="+221 7X XXX XX XX" required></div>
+          </div>
+          <div class="fg">
+            <label data-i18n="form.circuit">Circuit souhaite</label>
+            <select required>
+              <option value="" data-i18n="form.circuit.ph">Choisir un circuit...</option>
+              <option data-i18n="form.circuit.lr">Lac Rose — 58 000 FCFA / pers.</option>
+              <option data-i18n="form.circuit.bd">Reserve Bandian — 90 000 FCFA / pers.</option>
+              <option data-i18n="form.circuit.ft">Reserve Fathala — 87 000 FCFA / pers.</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="fg"><label data-i18n="form.persons">Nombre de personnes</label><input type="number" min="1" max="8" placeholder="Ex : 2" required></div>
+            <div class="fg"><label data-i18n="form.date">Date souhaitee</label><input type="date" required></div>
+          </div>
+          <div class="fg"><label data-i18n="form.message">Message (optionnel)</label><textarea data-i18n-placeholder="form.message.ph" placeholder="Questions, demandes speciales..."></textarea></div>
+          <button type="submit" class="form-submit" data-i18n="form.submit">Envoyer via WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">A Tourist Guide in Senegal</div>
+  <p data-i18n="footer.copy">&copy; 2026 — Tous droits reserves</p>
+  <p><a href="tel:+221778471181">+221 77 847 11 81</a></p>
+</footer>
 
 <script>
-  function showGallery(name, btn) {
-    document.querySelectorAll('.gallery-pane').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    const pane = document.getElementById('gallery-' + name);
-    if (pane) pane.classList.add('active');
-    btn.classList.add('active');
-  }
+// ============================================================
+// THEME
+// ============================================================
+let currentTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', currentTheme);
+updateThemeBtn();
 
-  function openLightbox(el) {
-    const img = el.querySelector('img');
-    if (!img) return;
-    document.getElementById('lightbox-img').src = img.src;
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  localStorage.setItem('theme', currentTheme);
+  updateThemeBtn();
+}
+function updateThemeBtn() {
+  document.getElementById('themeBtn').innerHTML = currentTheme === 'dark' ? '&#9728;' : '&#9790;';
+  document.getElementById('themeBtn').title = currentTheme === 'dark' ? 'Mode clair' : 'Mode sombre';
+}
 
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
+// ============================================================
+// CURRENCY CONVERTER
+// Taux fixes (FCFA = XOF, ancré à EUR : 1 EUR = 655.957 XOF)
+// ============================================================
+const RATES_TO_EUR = {
+  EUR: 1,
+  USD: 1.082,
+  GBP: 0.857,
+  CAD: 1.498,
+  CHF: 0.963,
+  MAD: 10.82,
+  DZD: 145.1,
+  TND: 3.352,
+  NGN: 1765,
+  GHS: 16.45,
+  JPY: 161.2,
+  CNY: 7.83,
+};
+const XOF_PER_EUR = 655.957;
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+function fcfaToTarget(fcfa, targetCurrency) {
+  const inEur = fcfa / XOF_PER_EUR;
+  return inEur * RATES_TO_EUR[targetCurrency];
+}
 
-  function submitForm(e) {
-    e.preventDefault();
-    const f = e.target;
-    const nom     = f.querySelector('input[type=text]').value;
-    const tel     = f.querySelector('input[type=tel]').value;
-    const circuit = f.querySelector('select').value;
-    const nb      = f.querySelector('input[type=number]').value;
-    const date    = f.querySelector('input[type=date]').value;
-    const msg     = f.querySelector('textarea').value;
-    const text = encodeURIComponent(
-      'Bonjour, je souhaite reserver :\n'
-      + 'Nom : ' + nom + '\n'
-      + 'Tel : ' + tel + '\n'
-      + 'Circuit : ' + circuit + '\n'
-      + 'Personnes : ' + nb + '\n'
-      + 'Date : ' + date
-      + (msg ? '\nMessage : ' + msg : '')
-    );
-    window.open('https://wa.me/221778471181?text=' + text, '_blank');
+function convertCurrency() {
+  const amountEl = document.getElementById('convAmount');
+  const targetEl = document.getElementById('convTarget');
+  if (!amountEl || !targetEl) return;
+  const amount   = parseFloat(amountEl.value) || 0;
+  const target   = targetEl.value;
+  const result   = fcfaToTarget(amount, target);
+  const ratePerK = fcfaToTarget(1000, target);
+  const rateLabel = (typeof i18n !== 'undefined' && i18n[currentLang])
+    ? (i18n[currentLang]['conv.rate'] || '1 000 FCFA') : '1 000 FCFA';
+  const resultEl = document.getElementById('convResult');
+  const curEl    = document.getElementById('convCur');
+  const eqEl     = document.getElementById('convEq');
+  const rateEl   = document.getElementById('convRateInfo');
+  if (resultEl) resultEl.textContent = result.toLocaleString('fr-FR', { maximumFractionDigits: 2 });
+  if (curEl)    curEl.textContent    = target;
+  if (eqEl)     eqEl.textContent    = amount.toLocaleString('fr-FR') + ' FCFA';
+  if (rateEl)   rateEl.textContent  = rateLabel + ' ≈ ' + ratePerK.toFixed(3) + ' ' + target;
+}
+
+function setPreset(val) {
+  document.getElementById('convAmount').value = val;
+  convertCurrency();
+}
+
+// ============================================================
+// TRANSLATIONS
+// ============================================================
+const i18n = {
+  fr: {
+    'nav.circuits': 'Circuits',
+    'nav.converter': 'Convertisseur',
+    'nav.gallery': 'Galerie',
+    'nav.contact': 'Contact',
+    'nav.cta': 'Reserver',
+    'hero.tag': 'Guide touristique — Dakar, Senegal',
+    'hero.title': 'Decouvrez<br>le <em>Senegal</em><br>sauvage',
+    'hero.sub': 'Lac Rose, reserves naturelles, lions et  — des aventures authentiques guidees par un expert local depuis Dakar.',
+    'hero.btn1': 'Voir les circuits',
+    'hero.btn2': 'Nous contacter',
+    'strip.destinations': 'Destinations',
+    'strip.available': 'Disponible',
+    'strip.confirm': 'Confirmation',
+    'circuits.tag': 'Nos offres',
+    'circuits.title': 'Trois circuits, une seule passion',
+    'circuits.desc': 'Transport depuis Dakar inclus. Groupes de maximum 8 personnes pour une experience intime et authentique avec votre guide local.',
+    'label.route': 'Trajet :',
+    'label.activities': 'Activites :',
+    'label.duration': 'Duree :',
+    'label.price': 'Tarif',
+    'label.per': 'FCFA / personne',
+    'label.book': 'Reserver',
+    'lr.badge': 'Le plus populaire',
+    'lr.desc': 'Le lac aux eaux rose unique au monde, a seulement 35 km de Dakar. Un phenomene naturel epoustouflant a ne pas manquer.',
+    'lr.route': 'Dakar — Lac Rose — 2h',
+    'lr.activities': 'Quad, promenade en chameau ou a cheval, visite du lac en pirogue',
+    'lr.duration': '3 h maximum',
+    'bd.badge': 'Decouverte faune',
+    'bd.desc': "Un safari authentique au coeur d'une reserve protegee. Hippopotames, crocodiles, oiseaux rares — et une rencontre avec les lions en voiture.",
+    'bd.route': 'Dakar — Bandian 2h15 / Lac Rose — Bandian 1h30',
+    'bd.activities': 'Safari complet + visite des lions (en voiture)',
+    'bd.duration': 'Safari 2h + lions 30 mn',
+    'ft.badge': 'Experience unique',
+    'ft.desc': "L'experience ultime : promenade avec des lions, , rhinoceros — une immersion totale dans la nature senegalaise sauvage.",
+    'ft.route': 'Dakar — Fathala 4h / Lac Rose — Fathala 4h30',
+    'ft.activities': 'Safari complet + promenade avec les lions',
+    'ft.duration': '2 a 3 h',
+    'conv.tag': 'Convertisseur',
+    'conv.title': 'Convertir le Franc CFA',
+    'conv.subtitle': 'Estimez le cout de votre sejour dans votre devise',
+    'conv.amount': 'Montant (FCFA)',
+    'conv.currency': 'Devise cible',
+    'conv.quick': 'Nos prix :',
+    'conv.rate': '1 000 FCFA',
+    'gallery.tag': 'Photos',
+    'gallery.title': 'Galerie de voyage',
+    'gallery.zoom': 'Agrandir',
+    'contact.tag': 'Contact',
+    'contact.title': 'Reservez votre aventure',
+    'contact.desc': 'Appelez-nous ou remplissez le formulaire. Confirmation sous 24h. Depart depuis Dakar, transport inclus.',
+    'contact.phone.label': 'Telephone & WhatsApp',
+    'contact.depart.label': 'Point de depart',
+    'contact.depart.value': 'Dakar, Senegal',
+    'contact.hours.label': 'Disponibilite',
+    'contact.hours.value': "7j/7 — toute l'annee",
+    'form.title': 'Demande de reservation',
+    'form.name': 'Votre nom',
+    'form.name.ph': 'Mamadou Diop',
+    'form.phone': 'Telephone / WhatsApp',
+    'form.circuit': 'Circuit souhaite',
+    'form.circuit.ph': 'Choisir un circuit...',
+    'form.circuit.lr': 'Lac Rose — 58 000 FCFA / pers.',
+    'form.circuit.bd': 'Reserve Bandian — 90 000 FCFA / pers.',
+    'form.circuit.ft': 'Reserve Fathala — 87 000 FCFA / pers.',
+    'form.persons': 'Nombre de personnes',
+    'form.date': 'Date souhaitee',
+    'form.message': 'Message (optionnel)',
+    'form.message.ph': 'Questions, demandes speciales...',
+    'form.submit': 'Envoyer via WhatsApp',
+    'footer.copy': '\u00a9 2026 \u2014 Tous droits reserves',
+    'wa.greeting': 'Bonjour, je souhaite reserver :',
+    'wa.name': 'Nom', 'wa.phone': 'Tel', 'wa.circuit': 'Circuit',
+    'wa.persons': 'Personnes', 'wa.date': 'Date', 'wa.message': 'Message',
+  },
+  en: {
+    'nav.circuits': 'Tours',
+    'nav.converter': 'Converter',
+    'nav.gallery': 'Gallery',
+    'nav.contact': 'Contact',
+    'nav.cta': 'Book Now',
+    'hero.tag': 'Tour Guide — Dakar, Senegal',
+    'hero.title': 'Discover<br>wild <em>Senegal</em><br>differently',
+    'hero.sub': 'Pink Lake, natural reserves, lions and  — authentic adventures guided by a local expert from Dakar.',
+    'hero.btn1': 'See our tours',
+    'hero.btn2': 'Contact us',
+    'strip.destinations': 'Destinations',
+    'strip.available': 'Available',
+    'strip.confirm': 'Confirmation',
+    'circuits.tag': 'Our offers',
+    'circuits.title': 'Three tours, one passion',
+    'circuits.desc': 'Transport from Dakar included. Groups of maximum 8 people for an intimate and authentic experience with your local guide.',
+    'label.route': 'Route:',
+    'label.activities': 'Activities:',
+    'label.duration': 'Duration:',
+    'label.price': 'Price',
+    'label.per': 'FCFA / person',
+    'label.book': 'Book',
+    'lr.badge': 'Most popular',
+    'lr.desc': 'The one-of-a-kind pink lake, just 35 km from Dakar. A breathtaking natural phenomenon not to be missed.',
+    'lr.route': 'Dakar — Pink Lake — 2h',
+    'lr.activities': 'Quad biking, camel or horse ride, lake tour by pirogue',
+    'lr.duration': '3 hours maximum',
+    'bd.badge': 'Wildlife discovery',
+    'bd.desc': 'An authentic safari in a protected reserve. Hippos, crocodiles, rare birds — and a lion encounter from the vehicle.',
+    'bd.route': 'Dakar — Bandian 2h15 / Pink Lake — Bandian 1h30',
+    'bd.activities': 'Full safari + lion visit (from the vehicle)',
+    'bd.duration': 'Safari 2h + lions 30 min',
+    'ft.badge': 'Unique experience',
+    'ft.desc': 'The ultimate experience: walking with lions, , rhinos — total immersion into Senegalese wildlife.',
+    'ft.route': 'Dakar — Fathala 4h / Pink Lake — Fathala 4h30',
+    'ft.activities': 'Full safari + walk with lions',
+    'ft.duration': '2 to 3 hours',
+    'conv.tag': 'Converter',
+    'conv.title': 'Convert CFA Franc',
+    'conv.subtitle': 'Estimate the cost of your trip in your currency',
+    'conv.amount': 'Amount (FCFA)',
+    'conv.currency': 'Target currency',
+    'conv.quick': 'Our prices:',
+    'conv.rate': '1,000 FCFA',
+    'gallery.tag': 'Photos',
+    'gallery.title': 'Travel gallery',
+    'gallery.zoom': 'Enlarge',
+    'contact.tag': 'Contact',
+    'contact.title': 'Book your adventure',
+    'contact.desc': 'Call us or fill out the form. Confirmation within 24h. Departure from Dakar, transport included.',
+    'contact.phone.label': 'Phone & WhatsApp',
+    'contact.depart.label': 'Departure point',
+    'contact.depart.value': 'Dakar, Senegal',
+    'contact.hours.label': 'Availability',
+    'contact.hours.value': '7 days/7 — all year round',
+    'form.title': 'Booking request',
+    'form.name': 'Your name',
+    'form.name.ph': 'John Smith',
+    'form.phone': 'Phone / WhatsApp',
+    'form.circuit': 'Desired tour',
+    'form.circuit.ph': 'Choose a tour...',
+    'form.circuit.lr': 'Pink Lake — 58,000 FCFA / person',
+    'form.circuit.bd': 'Bandian Reserve — 90,000 FCFA / person',
+    'form.circuit.ft': 'Fathala Reserve — 87,000 FCFA / person',
+    'form.persons': 'Number of persons',
+    'form.date': 'Desired date',
+    'form.message': 'Message (optional)',
+    'form.message.ph': 'Questions, special requests...',
+    'form.submit': 'Send via WhatsApp',
+    'footer.copy': '\u00a9 2026 \u2014 All rights reserved',
+    'wa.greeting': 'Hello, I would like to book:',
+    'wa.name': 'Name', 'wa.phone': 'Phone', 'wa.circuit': 'Tour',
+    'wa.persons': 'Persons', 'wa.date': 'Date', 'wa.message': 'Message',
   }
+};
+
+let currentLang = 'fr';
+
+function setLang(lang, btn) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const t = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+  document.querySelectorAll('select option[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.textContent = t[key];
+  });
+  convertCurrency();
+}
+
+// ============================================================
+// GALLERY
+// ============================================================
+function showGallery(name, btn) {
+  document.querySelectorAll('.gallery-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  const pane = document.getElementById('gallery-' + name);
+  if (pane) pane.classList.add('active');
+  btn.classList.add('active');
+}
+
+// ============================================================
+// LIGHTBOX
+// ============================================================
+function openLightbox(el) {
+  const img = el.querySelector('img');
+  if (!img) return;
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ============================================================
+// WHATSAPP FORM
+// ============================================================
+function submitForm(e) {
+  e.preventDefault();
+  const f = e.target;
+  const t = i18n[currentLang];
+  const nom = f.querySelector('input[type=text]').value;
+  const tel = f.querySelector('input[type=tel]').value;
+  const circuit = f.querySelector('select').value;
+  const nb = f.querySelector('input[type=number]').value;
+  const date = f.querySelector('input[type=date]').value;
+  const msg = f.querySelector('textarea').value;
+  const text = encodeURIComponent(
+    t['wa.greeting'] + '\n'
+    + t['wa.name'] + ' : ' + nom + '\n'
+    + t['wa.phone'] + ' : ' + tel + '\n'
+    + t['wa.circuit'] + ' : ' + circuit + '\n'
+    + t['wa.persons'] + ' : ' + nb + '\n'
+    + t['wa.date'] + ' : ' + date
+    + (msg ? '\n' + t['wa.message'] + ' : ' + msg : '')
+  );
+  window.open('https://wa.me/221778471181?text=' + text, '_blank');
+}
+
+// Init after all definitions
+convertCurrency();
 </script>
 </body>
 </html>
