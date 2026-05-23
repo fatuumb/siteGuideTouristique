@@ -263,9 +263,27 @@ h2 {
   padding-top: 1.5rem; border-top: 1px solid var(--border); margin-top: auto;
 }
 .price-block { display: flex; flex-direction: column; }
-.price-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+
+/* ====== MODIFICATION : Tarif Transport & FCFA / personne en gras noir foncé ====== */
+.price-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #111111;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+[data-theme="dark"] .price-label { color: #F5F5F5; }
+
 .price-amount { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--green); line-height: 1; }
-.price-per { font-size: 0.72rem; color: var(--muted); font-weight: 300; }
+
+.price-per {
+  font-size: 0.72rem;
+  color: #111111;
+  font-weight: 700;
+}
+[data-theme="dark"] .price-per { color: #F5F5F5; }
+
 .reserve-btn {
   background: var(--green); color: #fff;
   padding: 0.85rem 1.8rem; border: 2px solid var(--green);
@@ -600,7 +618,7 @@ footer a:hover { color: var(--green); }
           <div class="circuit-badge" data-i18n="lr.badge">Le plus populaire</div>
         </div>
         <div class="circuit-body">
-          <div class="circuit-num">Circuit 01</div> 
+          <div class="circuit-num">Circuit 01</div>
           <h3>Lac Rose</h3>
           <p class="circuit-desc" data-i18n="lr.desc">Le lac aux eaux rose unique au monde, a seulement 35 km de Dakar. Un phenomene naturel epoustouflant a ne pas manquer.</p>
           <div class="circuit-details">
@@ -612,7 +630,7 @@ footer a:hover { color: var(--green); }
             <div class="price-block">
               <span class="price-label" data-i18n="label.price">Tarif Transport</span>
               <span class="price-amount">58 000</span>
-              <span class="price-per" data-i18n="label.per">FCFA / personne :<strong> Activités non inclus </strong></span>
+              <span class="price-per" data-i18n="label.per">FCFA / personne : Activités non inclus</span>
             </div>
             <a href="#contact" class="reserve-btn" data-i18n="label.book">Reserver</a>
           </div>
@@ -1140,7 +1158,7 @@ function submitForm(e) {
   window.open('https://wa.me/221778471181?text=' + text, '_blank');
 }
 
-// Init after all definitions
+// Init
 convertCurrency();
 </script>
 </body>
