@@ -453,6 +453,10 @@ h2 {
   font-size: 1rem; line-height: 1.95; color: var(--text-dim);
   font-weight: 300; margin-bottom: 2rem; max-width: 540px;
 }
+.flag-sn {
+  height: 0.95em; width: auto; vertical-align: -0.14em;
+  margin-left: 0.3em; border: 1px solid var(--border);
+}
 .profile-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.2rem; }
 .profile-chip {
   display: inline-flex; align-items: center; gap: 0.5rem;
@@ -662,6 +666,29 @@ footer a:hover { color: var(--green); }
     <div class="strip-item"><span class="strip-num">13</span><span class="strip-label" data-i18n="strip.destinations">Destinations</span></div>
     <div class="strip-item"><span class="strip-num">7j/7</span><span class="strip-label" data-i18n="strip.available">Disponible</span></div>
     <div class="strip-item"><span class="strip-num">24h</span><span class="strip-label" data-i18n="strip.confirm">Confirmation</span></div>
+  </div>
+</section>
+
+<!-- PROFIL / GUIDE -->
+<section id="profil">
+  <div class="section-inner">
+    <div class="profile-grid">
+      <div class="profile-photo-wrap">
+        <img class="profile-photo" src="images/Profil.jpeg" alt="Mouhamet (Momo), guide touristique a Dakar">
+      </div>
+      <div class="profile-info">
+        <div class="tag" data-i18n="profile.tag">Votre guide</div>
+        <h2 class="profile-name" data-i18n-html="profile.name">Mouhamet <span>&laquo; Momo &raquo;</span></h2>
+        <div class="profile-role" data-i18n="profile.role">Guide touristique &mdash; Dakar, Senegal</div>
+        <p class="profile-bio"><span data-i18n="profile.bio">Jeune guide touristique Sénégalais de souche, basé à Dakar et émerveillé par l'hospitalité universelle de mon beau pays, et souhaiterai de le partager avec le monde entier. Passionné par notre culture, nos différentes langues et paysages... je vous accueille comme un ami et vous fais découvrir mon pays en profondeur en passant par le Lac Rose aux reserves sauvages, sans oublier les ruelles animés de Dakar. A bientot !</span> <svg class="flag-sn" viewBox="0 0 9 6" role="img" aria-label="Drapeau du Senegal"><rect width="3" height="6" x="0" fill="#00853F"/><rect width="3" height="6" x="3" fill="#FDEF42"/><rect width="3" height="6" x="6" fill="#E31B23"/><polygon fill="#00853F" points="4.5,2.1 4.712,2.709 5.356,2.722 4.842,3.111 5.029,3.728 4.5,3.36 3.971,3.728 4.158,3.111 3.644,2.722 4.288,2.709"/></svg></p>
+        <div class="profile-chips">
+          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip1">Base a Dakar</span></span>
+          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip2">Francais &middot; Anglais &middot; Wolof</span></span>
+          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip3">Disponible 7j/7</span></span>
+        </div>
+        <a href="#contact" class="btn-green" data-i18n="profile.cta">Me contacter</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1161,29 +1188,6 @@ footer a:hover { color: var(--green); }
   <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
-<!-- PROFIL / GUIDE -->
-<section id="profil">
-  <div class="section-inner">
-    <div class="profile-grid">
-      <div class="profile-photo-wrap">
-        <img class="profile-photo" src="images/Profil.jpeg" alt="Mouhamet (Momo), guide touristique a Dakar">
-      </div>
-      <div class="profile-info">
-        <div class="tag" data-i18n="profile.tag">Votre guide</div>
-        <h2 class="profile-name" data-i18n-html="profile.name">Mouhamet <span>&laquo; Momo &raquo;</span></h2>
-        <div class="profile-role" data-i18n="profile.role">Guide touristique &mdash; Dakar, Senegal</div>
-        <p class="profile-bio" data-i18n="profile.bio">Jeune guide touristique senegalais de souche, base a Dakar et emerveille par l'hospitalite universelle de mon beau pays, je reve de le partager avec le monde entier. Passionne par ma culture, ma langue et mes paysages, je vous accueille comme un ami et vous fais decouvrir le vrai Senegal &mdash; du Lac Rose aux reserves sauvages, sans oublier les ruelles animees de Dakar. A bientot, inch'Allah ! &#127480;&#127475;</p>
-        <div class="profile-chips">
-          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip1">Base a Dakar</span></span>
-          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip2">Francais &middot; Anglais &middot; Wolof</span></span>
-          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip3">Disponible 7j/7</span></span>
-        </div>
-        <a href="#contact" class="btn-green" data-i18n="profile.cta">Me contacter</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-inner">
@@ -1463,7 +1467,7 @@ const i18n = {
     'profile.tag': 'Votre guide',
     'profile.name': 'Mouhamet <span>« Momo »</span>',
     'profile.role': 'Guide touristique — Dakar, Senegal',
-    'profile.bio': "Jeune guide touristique senegalais de souche, base a Dakar et emerveille par l'hospitalite universelle de mon beau pays, je reve de le partager avec le monde entier. Passionne par ma culture, ma langue et mes paysages, je vous accueille comme un ami et vous fais decouvrir le vrai Senegal — du Lac Rose aux reserves sauvages, sans oublier les ruelles animees de Dakar. A bientot, inch'Allah ! 🇸🇳",
+    'profile.bio': "Jeune guide touristique Sénégalais de souche, basé à Dakar et émerveillé par l'hospitalité universelle de mon beau pays, et souhaiterai de le partager avec le monde entier. Passionné par notre culture, nos différentes langues et paysages... je vous accueille comme un ami et vous fais découvrir mon pays en profondeur en passant par le Lac Rose aux reserves sauvages, sans oublier les ruelles animés de Dakar. A bientot !",
     'profile.chip1': 'Base a Dakar',
     'profile.chip2': 'Francais · Anglais · Wolof',
     'profile.chip3': 'Disponible 7j/7',
@@ -1633,7 +1637,7 @@ const i18n = {
     'profile.tag': 'Your guide',
     'profile.name': 'Mouhamet <span>"Momo"</span>',
     'profile.role': 'Tour guide — Dakar, Senegal',
-    'profile.bio': "A young Senegalese tour guide, born and raised, based in Dakar and amazed by the boundless hospitality of my beautiful country, I dream of sharing it with the whole world. Passionate about my culture, my language and my landscapes, I welcome you as a friend and show you the real Senegal — from the Pink Lake to the wild reserves, not forgetting the lively streets of Dakar. See you soon! 🇸🇳",
+    'profile.bio': "A young Senegalese tour guide, born and raised, based in Dakar and amazed by the boundless hospitality of my beautiful country, I would love to share it with the whole world. Passionate about our culture, our many languages and landscapes... I welcome you as a friend and show you my country in depth — from the Pink Lake to the wild reserves, not forgetting the lively streets of Dakar. See you soon!",
     'profile.chip1': 'Based in Dakar',
     'profile.chip2': 'French · English · Wolof',
     'profile.chip3': 'Available 7 days/7',
