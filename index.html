@@ -424,6 +424,43 @@ h2 {
 }
 .lb-close:hover { opacity: 1; border-color: var(--green); color: var(--green); }
 
+/* ====== PROFIL / GUIDE ====== */
+#profil { background: var(--bg); border-top: 1px solid var(--border); }
+.profile-grid {
+  display: grid; grid-template-columns: 0.85fr 1.15fr;
+  gap: 5rem; align-items: center;
+}
+.profile-photo-wrap { position: relative; }
+.profile-photo-wrap::before {
+  content: ''; position: absolute; inset: -14px -14px 14px 14px;
+  border: 1px solid var(--green); z-index: 0; pointer-events: none;
+}
+.profile-photo {
+  position: relative; z-index: 1;
+  width: 100%; aspect-ratio: 4/5; object-fit: cover;
+  border: 1px solid var(--border-s); display: block;
+}
+.profile-role {
+  font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--green); font-weight: 600; margin: 0.6rem 0 1.5rem;
+}
+.profile-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 700; line-height: 1.05;
+}
+.profile-name span { color: var(--green); font-style: italic; }
+.profile-bio {
+  font-size: 1rem; line-height: 1.95; color: var(--text-dim);
+  font-weight: 300; margin-bottom: 2rem; max-width: 540px;
+}
+.profile-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.2rem; }
+.profile-chip {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border: 1px solid var(--border-s); background: var(--card-bg);
+  padding: 0.55rem 1.1rem; font-size: 0.78rem; color: var(--text);
+}
+.profile-chip b { color: var(--green); font-weight: 600; }
+
 /* ====== CONTACT ====== */
 #contact { background: var(--bg-2); border-top: 1px solid var(--border); }
 .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 7rem; align-items: start; }
@@ -502,6 +539,8 @@ footer a:hover { color: var(--green); }
   .circuit-cards { grid-template-columns: 1fr; gap: 1.5rem; }
   .circuit-img { height: 240px; }
   .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .profile-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .profile-photo-wrap { max-width: 360px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
   .conv-grid { grid-template-columns: 1fr; }
   .conv-arrow { transform: rotate(90deg); margin: 0 auto; }
@@ -560,6 +599,9 @@ footer a:hover { color: var(--green); }
   .gallery-item { aspect-ratio: 1; }
 
   .contact-grid { gap: 2.5rem; }
+  .profile-grid { gap: 2rem; }
+  .profile-bio { font-size: 0.92rem; }
+  .profile-chip { font-size: 0.72rem; padding: 0.45rem 0.8rem; }
   .contact-info h2 { font-size: 1.9rem; }
   .contact-info > p { font-size: 0.88rem; margin-bottom: 2rem; }
   .contact-items { gap: 1rem; }
@@ -585,6 +627,7 @@ footer a:hover { color: var(--green); }
     <li><a href="#circuits" data-i18n="nav.circuits">Circuits</a></li>
     <li><a href="#converter" data-i18n="nav.converter">Convertisseur</a></li>
     <li><a href="#gallery" data-i18n="nav.gallery">Galerie</a></li>
+    <li><a href="#profil" data-i18n="nav.profile">Le guide</a></li>
     <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
   </ul>
   <div class="nav-right">
@@ -1118,6 +1161,29 @@ footer a:hover { color: var(--green); }
   <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
 </div>
 
+<!-- PROFIL / GUIDE -->
+<section id="profil">
+  <div class="section-inner">
+    <div class="profile-grid">
+      <div class="profile-photo-wrap">
+        <img class="profile-photo" src="images/Profil.jpeg" alt="Mouhamet (Momo), guide touristique a Dakar">
+      </div>
+      <div class="profile-info">
+        <div class="tag" data-i18n="profile.tag">Votre guide</div>
+        <h2 class="profile-name" data-i18n-html="profile.name">Mouhamet <span>&laquo; Momo &raquo;</span></h2>
+        <div class="profile-role" data-i18n="profile.role">Guide touristique &mdash; Dakar, Senegal</div>
+        <p class="profile-bio" data-i18n="profile.bio">Jeune guide touristique senegalais de souche, base a Dakar et emerveille par l'hospitalite universelle de mon beau pays, je reve de le partager avec le monde entier. Passionne par ma culture, ma langue et mes paysages, je vous accueille comme un ami et vous fais decouvrir le vrai Senegal &mdash; du Lac Rose aux reserves sauvages, sans oublier les ruelles animees de Dakar. A bientot, inch'Allah ! &#127480;&#127475;</p>
+        <div class="profile-chips">
+          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip1">Base a Dakar</span></span>
+          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip2">Francais &middot; Anglais &middot; Wolof</span></span>
+          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip3">Disponible 7j/7</span></span>
+        </div>
+        <a href="#contact" class="btn-green" data-i18n="profile.cta">Me contacter</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="section-inner">
@@ -1274,6 +1340,7 @@ const i18n = {
     'nav.circuits': 'Circuits',
     'nav.converter': 'Convertisseur',
     'nav.gallery': 'Galerie',
+    'nav.profile': 'Le guide',
     'nav.contact': 'Contact',
     'nav.cta': 'Reserver',
     'hero.tag': 'Guide touristique — Dakar, Senegal',
@@ -1393,6 +1460,14 @@ const i18n = {
     'gallery.tag': 'Photos',
     'gallery.title': 'Galerie de voyage',
     'gallery.zoom': 'Agrandir',
+    'profile.tag': 'Votre guide',
+    'profile.name': 'Mouhamet <span>« Momo »</span>',
+    'profile.role': 'Guide touristique — Dakar, Senegal',
+    'profile.bio': "Jeune guide touristique senegalais de souche, base a Dakar et emerveille par l'hospitalite universelle de mon beau pays, je reve de le partager avec le monde entier. Passionne par ma culture, ma langue et mes paysages, je vous accueille comme un ami et vous fais decouvrir le vrai Senegal — du Lac Rose aux reserves sauvages, sans oublier les ruelles animees de Dakar. A bientot, inch'Allah ! 🇸🇳",
+    'profile.chip1': 'Base a Dakar',
+    'profile.chip2': 'Francais · Anglais · Wolof',
+    'profile.chip3': 'Disponible 7j/7',
+    'profile.cta': 'Me contacter',
     'contact.tag': 'Contact',
     'contact.title': 'Reservez votre aventure',
     'contact.desc': 'Appelez-nous ou remplissez le formulaire. Confirmation sous 24h. Depart depuis Dakar, transport inclus.',
@@ -1435,6 +1510,7 @@ const i18n = {
     'nav.circuits': 'Tours',
     'nav.converter': 'Converter',
     'nav.gallery': 'Gallery',
+    'nav.profile': 'The guide',
     'nav.contact': 'Contact',
     'nav.cta': 'Book Now',
     'hero.tag': 'Tour Guide — Dakar, Senegal',
@@ -1554,6 +1630,14 @@ const i18n = {
     'gallery.tag': 'Photos',
     'gallery.title': 'Travel gallery',
     'gallery.zoom': 'Enlarge',
+    'profile.tag': 'Your guide',
+    'profile.name': 'Mouhamet <span>"Momo"</span>',
+    'profile.role': 'Tour guide — Dakar, Senegal',
+    'profile.bio': "A young Senegalese tour guide, born and raised, based in Dakar and amazed by the boundless hospitality of my beautiful country, I dream of sharing it with the whole world. Passionate about my culture, my language and my landscapes, I welcome you as a friend and show you the real Senegal — from the Pink Lake to the wild reserves, not forgetting the lively streets of Dakar. See you soon! 🇸🇳",
+    'profile.chip1': 'Based in Dakar',
+    'profile.chip2': 'French · English · Wolof',
+    'profile.chip3': 'Available 7 days/7',
+    'profile.cta': 'Contact me',
     'contact.tag': 'Contact',
     'contact.title': 'Book your adventure',
     'contact.desc': 'Call us or fill out the form. Confirmation within 24h. Departure from Dakar, transport included.',
