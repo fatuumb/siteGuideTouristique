@@ -430,7 +430,7 @@ h2 {
   display: grid; grid-template-columns: 0.85fr 1.15fr;
   gap: 5rem; align-items: center;
 }
-.profile-photo-wrap { position: relative; }
+.profile-photo-wrap { position: relative; width: 100%; max-width: 180px; justify-self: center; }
 .profile-photo-wrap::before {
   content: ''; position: absolute; inset: -14px -14px 14px 14px;
   border: 1px solid var(--green); z-index: 0; pointer-events: none;
@@ -666,29 +666,6 @@ footer a:hover { color: var(--green); }
     <div class="strip-item"><span class="strip-num">13</span><span class="strip-label" data-i18n="strip.destinations">Destinations</span></div>
     <div class="strip-item"><span class="strip-num">7j/7</span><span class="strip-label" data-i18n="strip.available">Disponible</span></div>
     <div class="strip-item"><span class="strip-num">24h</span><span class="strip-label" data-i18n="strip.confirm">Confirmation</span></div>
-  </div>
-</section>
-
-<!-- PROFIL / GUIDE -->
-<section id="profil">
-  <div class="section-inner">
-    <div class="profile-grid">
-      <div class="profile-photo-wrap">
-        <img class="profile-photo" src="images/Profil.jpeg" alt="Mouhamet (Momo), guide touristique a Dakar">
-      </div>
-      <div class="profile-info">
-        <div class="tag" data-i18n="profile.tag">Votre guide</div>
-        <h2 class="profile-name" data-i18n-html="profile.name">Mouhamet <span>&laquo; Momo &raquo;</span></h2>
-        <div class="profile-role" data-i18n="profile.role">Guide touristique &mdash; Dakar, Senegal</div>
-        <p class="profile-bio"><span data-i18n="profile.bio">Jeune guide touristique Sénégalais de souche, basé à Dakar et émerveillé par l'hospitalité universelle de mon beau pays, et souhaiterai de le partager avec le monde entier. Passionné par notre culture, nos différentes langues et paysages... je vous accueille comme un ami et vous fais découvrir mon pays en profondeur en passant par le Lac Rose aux reserves sauvages, sans oublier les ruelles animés de Dakar. A bientot !</span> <svg class="flag-sn" viewBox="0 0 9 6" role="img" aria-label="Drapeau du Senegal"><rect width="3" height="6" x="0" fill="#00853F"/><rect width="3" height="6" x="3" fill="#FDEF42"/><rect width="3" height="6" x="6" fill="#E31B23"/><polygon fill="#00853F" points="4.5,2.1 4.712,2.709 5.356,2.722 4.842,3.111 5.029,3.728 4.5,3.36 3.971,3.728 4.158,3.111 3.644,2.722 4.288,2.709"/></svg></p>
-        <div class="profile-chips">
-          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip1">Base a Dakar</span></span>
-          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip2">Francais &middot; Anglais &middot; Wolof</span></span>
-          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip3">Disponible 7j/7</span></span>
-        </div>
-        <a href="#contact" class="btn-green" data-i18n="profile.cta">Me contacter</a>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1255,6 +1232,29 @@ footer a:hover { color: var(--green); }
           <div class="fg"><label data-i18n="form.message">Message (optionnel)</label><textarea data-i18n-placeholder="form.message.ph" placeholder="Questions, demandes speciales..."></textarea></div>
           <button type="submit" class="form-submit" data-i18n="form.submit">Envoyer via WhatsApp</button>
         </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFIL / GUIDE -->
+<section id="profil">
+  <div class="section-inner">
+    <div class="profile-grid">
+      <div class="profile-photo-wrap">
+        <img class="profile-photo" src="images/Profil.jpeg" alt="Mouhamet (Momo), guide touristique a Dakar">
+      </div>
+      <div class="profile-info">
+        <div class="tag" data-i18n="profile.tag">Votre guide</div>
+        <h2 class="profile-name" data-i18n-html="profile.name">Mouhamet <span>&laquo; Momo &raquo;</span></h2>
+        <div class="profile-role" data-i18n="profile.role">Guide touristique &mdash; Dakar, Senegal</div>
+        <p class="profile-bio"><span data-i18n="profile.bio">Jeune guide touristique Sénégalais de souche, basé à Dakar et émerveillé par l'hospitalité universelle de mon beau pays, et souhaiterai de le partager avec le monde entier. Passionné par notre culture, nos différentes langues et paysages... je vous accueille comme un ami et vous fais découvrir mon pays en profondeur en passant par le Lac Rose aux reserves sauvages, sans oublier les ruelles animés de Dakar. A bientot !</span> <svg class="flag-sn" viewBox="0 0 9 6" role="img" aria-label="Drapeau du Senegal"><rect width="3" height="6" x="0" fill="#00853F"/><rect width="3" height="6" x="3" fill="#FDEF42"/><rect width="3" height="6" x="6" fill="#E31B23"/><polygon fill="#00853F" points="4.5,2.1 4.712,2.709 5.356,2.722 4.842,3.111 5.029,3.728 4.5,3.36 3.971,3.728 4.158,3.111 3.644,2.722 4.288,2.709"/></svg></p>
+        <div class="profile-chips">
+          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip1">Base a Dakar</span></span>
+          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip2">Francais &middot; Anglais &middot; Wolof</span></span>
+          <span class="profile-chip"><b>&#9679;</b> <span data-i18n="profile.chip3">Disponible 7j/7</span></span>
+        </div>
+        <a href="#contact" class="btn-green" data-i18n="profile.cta">Me contacter</a>
       </div>
     </div>
   </div>
