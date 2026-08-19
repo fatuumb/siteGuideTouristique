@@ -1,0 +1,6 @@
+# Projet Python separe, non lie au site touristique
+LLM/
+
+# Environnements virtuels et secrets
+.venv/
+.env
